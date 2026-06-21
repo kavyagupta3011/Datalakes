@@ -1,0 +1,21 @@
+# Generated pipeline output - regenerate with run_pipeline.sh, don't commit
+bronze/
+silver/
+catalog/catalog.json
+lineage/lineage.json
+mappings/column_mappings.json
+
+# Env / secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

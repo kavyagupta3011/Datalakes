@@ -1,0 +1,15 @@
+# Manual fact/dimension classification overrides for silver_to_gold.py.
+#
+# Checked BEFORE the automatic heuristic (id/date/measure column counting).
+# Use this when an entity's natural shape fools the heuristic - e.g. a
+# reference table that happens to carry two date columns, or a transactional
+# table with only one id column.
+#
+# Format:
+#   <domain>:
+#     <entity>: dimension | fact
+#
+# Example (uncomment and adjust to override):
+# retail:
+#   customers: dimension
+#   orders: fact

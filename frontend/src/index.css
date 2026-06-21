@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-gradient-to-br from-lavender-50 via-white to-skyblue-50 text-slate-800 antialiased;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: theme("colors.lavender.200");
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme("colors.lavender.300");
+}
+
+.card {
+  @apply rounded-2xl border border-white/60 bg-white/80 backdrop-blur-sm shadow-glow;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-gradient px-4 py-2.5
+    text-sm font-semibold text-white shadow-md shadow-lavender-200 transition
+    hover:opacity-90 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.btn-secondary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-lavender-200 bg-white
+    px-4 py-2.5 text-sm font-semibold text-lavender-700 transition hover:bg-lavender-50
+    active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50;
+}
+
+.input {
+  @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm
+    placeholder:text-slate-400 focus:border-lavender-400 focus:outline-none focus:ring-2 focus:ring-lavender-100;
+}
+
+.section-title {
+  @apply text-lg font-bold text-slate-800;
+}
+
+.muted {
+  @apply text-sm text-slate-500;
+}

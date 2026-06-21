@@ -1,0 +1,14 @@
+bronze/
+silver/
+catalog/catalog.json
+lineage/lineage.json
+mappings/column_mappings.json
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
+.git/
+.pytest_cache/
+tests/
+.github/

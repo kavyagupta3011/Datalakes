@@ -1,0 +1,67 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: lakehouse
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d lakehouse"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # One-shot job: generates Bronze data and runs the full pipeline into
+  # Postgres, then exits. Run with `docker compose run pipeline` (or it
+  # runs once automatically on `docker compose up`).
+  pipeline:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PG_HOST: postgres
+      PG_PORT: "5432"
+      PG_DB: lakehouse
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+    command: ["python3", "src/orchestrator.py"]
+    volumes:
+      - lake_data:/app/bronze
+      - lake_silver:/app/silver
+
+  api:
+    build: .
+    depends_on:
+      postgres:
+        condition: service_healthy
+      pipeline:
+        condition: service_completed_successfully
+    environment:
+      PG_HOST: postgres
+      PG_PORT: "5432"
+      PG_DB: lakehouse
+      PG_USER: postgres
+      PG_PASSWORD: postgres
+    ports:
+      - "8000:8000"
+    command: ["python3", "src/api.py"]
+    volumes:
+      - lake_data:/app/bronze
+      - lake_silver:/app/silver
+
+  frontend:
+    build: ./frontend
+    depends_on:
+      - api
+    ports:
+      - "3000:80"
+
+volumes:
+  pg_data:
+  lake_data:
+  lake_silver:

@@ -1,0 +1,24 @@
+# ---------------------------------------------------------------------------
+# Domain-agnostic fallback rules used by the schema engine ONLY when a column
+# has no exact alias match and no previously-approved mapping. These rules
+# are generic patterns, not tied to any one domain.
+# ---------------------------------------------------------------------------
+
+name_contains:
+  # if the cleaned column name contains the key, rename to the value
+  - {contains: "email", maps_to: "email"}
+  - {contains: "phone", maps_to: "phone_number"}
+  - {contains: "date", maps_to: null}     # leave name, but flag as date-like for type casting
+  - {contains: "amount", maps_to: "amount"}
+  - {contains: "id", maps_to: null}       # leave name, but flag as a likely identifier column
+
+numeric_range_guess:
+  # if a column has no usable name (e.g. "unnamed_0", "col_3") AND the data
+  # mostly falls within a numeric range, guess a generic semantic role
+  - {min: 1, max: 5, maps_to: "rating"}
+  - {min: 0, max: 10, maps_to: "score"}
+
+boolean_value_map:
+  # values that should be coerced to true/false during cleaning
+  true_values: ["yes", "y", "true", "1"]
+  false_values: ["no", "n", "false", "0"]

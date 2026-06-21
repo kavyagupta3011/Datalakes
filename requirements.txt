@@ -1,0 +1,18 @@
+pandas>=2.0
+pyarrow>=14.0
+openpyxl>=3.1
+lxml>=4.9
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+pyyaml>=6.0
+faker>=22.0
+python-dotenv>=1.0
+
+# OCR (offline, no LLM/API key) - requires the system tesseract-ocr binary
+pillow>=10.0
+pytesseract>=0.3.10
+
+# REST API over Gold/OLAP (+ upload/pipeline-trigger endpoints for the frontend)
+fastapi>=0.110
+uvicorn>=0.27
+python-multipart>=0.0.9

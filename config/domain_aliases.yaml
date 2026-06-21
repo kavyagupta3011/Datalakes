@@ -1,0 +1,67 @@
+# ---------------------------------------------------------------------------
+# Domain alias map for the schema harmonization engine.
+#
+# This is the ONLY place that contains anything domain-specific in the whole
+# pipeline. Everything else (decoders, cleaning, lineage, Gold builder, OLAP)
+# is fully generic and works off whatever domains/entities it finds here or
+# discovers at runtime. To onboard a brand-new domain you only need to:
+#   1) drop files into bronze/<new_domain>/
+#   2) optionally add an alias block below (not required - heuristics.yaml
+#      and the raw column names are used as a fallback)
+#
+# Structure:
+#   <domain>:
+#     <entity>:
+#       <canonical_column>: [list, of, known, aliases]
+# ---------------------------------------------------------------------------
+
+retail:
+  customers:
+    customer_id: [cust_id, client_id, customer id, customerid, cust no, customer_no]
+    full_name: [name, customer name, full name, cust_name]
+    email: [email address, e-mail, contact email]
+    signup_date: [sign up date, joined, registration_date, created]
+    country: [nation, country_name]
+
+  orders:
+    order_id: [order no, order_number, orderid]
+    customer_id: [cust_id, client_id, customer no, customerid]
+    order_date: [order dt, date, purchase_date]
+    amount: [total, order_total, amt, order_amount]
+    status: [order_status, state]
+
+  feedback:
+    customer_id: [what is your customer id, customer id, cust_id]
+    rating: [how satisfied are you 1 5, satisfaction, satisfaction_rating]
+    comments: [additional comments, comment, feedback_text]
+
+education:
+  students:
+    student_id: [roll_no, roll no, student id, id number, studentid]
+    full_name: [name, student name]
+    dob: [date of birth, birth_date]
+    department: [dept, branch]
+    email: [email address, e-mail]
+
+  grades:
+    student_id: [roll_no, roll no, studentid]
+    course: [course_code, subject]
+    grade: [final_grade, letter_grade]
+    grade_points: [points, gpa_points]
+    credits: [credit_hours, credit]
+
+support:
+  tickets:
+    ticket_id: [case_id, case no, ticket no, ticketid]
+    customer_email: [email, contact email, customer_email_address]
+    subject: [title, issue]
+    priority: [severity, urgency]
+    created_at: [opened_at, created, date_opened]
+    resolved_at: [closed_at, resolution_date]
+    status: [ticket_status, state]
+
+  agents:
+    agent_id: [agent no, employee_id, agentid]
+    agent_name: [name, employee_name]
+    team: [department, group]
+    hire_date: [start_date, joined]

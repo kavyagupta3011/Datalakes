@@ -1,0 +1,40 @@
+{
+  "steps": {
+    "build_catalog": {
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2026-06-21T05:49:23.423812+00:00",
+      "finished_at": "2026-06-21T05:49:24.081590+00:00",
+      "last_error": null
+    },
+    "bronze_to_silver": {
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2026-06-21T05:49:24.082934+00:00",
+      "finished_at": "2026-06-21T05:49:32.466889+00:00",
+      "last_error": null
+    },
+    "silver_to_gold": {
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2026-06-21T05:49:32.471088+00:00",
+      "finished_at": "2026-06-21T05:49:52.037172+00:00",
+      "last_error": null
+    },
+    "gold_olap": {
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2026-06-21T05:49:52.037172+00:00",
+      "finished_at": "2026-06-21T05:49:55.297013+00:00",
+      "last_error": null
+    },
+    "validate_olap": {
+      "status": "success",
+      "attempts": 1,
+      "started_at": "2026-06-21T05:49:55.299804+00:00",
+      "finished_at": "2026-06-21T05:49:57.937111+00:00",
+      "last_error": null
+    }
+  },
+  "updated_at": "2026-06-21T05:49:57.937111+00:00"
+}
