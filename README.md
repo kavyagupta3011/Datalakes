@@ -311,20 +311,4 @@ requirements-dev.txt             test-only dependencies (pytest, pgserver)
 .env.example                     template for PG_HOST/PG_PORT/PG_DB/PG_USER/PG_PASSWORD
 ```
 
-## Design choices / scope
 
-- Orchestration is a single dependency-free script (subprocess + retry loop), not a DAG
-  scheduler like Airflow — intentional, to keep the pipeline readable and free of
-  heavyweight infra for a demo project
-- Column harmonization trust is method-based (memory / alias / heuristic / fallback),
-  not an arbitrary numeric confidence score — first matching rule wins, and only
-  curated-alias or previously-approved mappings are auto-approved
-- OCR is offline Tesseract only, no LLM-based extraction and no API key — keeps the
-  pipeline runnable with zero external dependencies or cost
-- The API's write surface is intentionally tiny (upload + pipeline trigger) and
-  unauthenticated — enough to make the frontend genuinely interactive for a demo, not a
-  general-purpose write API. The rest of the API stays read-only JSON; point a
-  notebook or BI tool at it directly if you'd rather skip the UI
-- Postgres instead of a lakehouse table format (Delta/Iceberg) — gives a real SQL star
-  schema with FK semantics and ACID writes without needing a Spark cluster, appropriate
-  for the scope of a single-engineer demo
